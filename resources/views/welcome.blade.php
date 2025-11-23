@@ -62,10 +62,10 @@
                             @endif
                         </div>
 
-                        <!-- FIXED SMART TEXT AREA -->
+                        <!-- FIXED TEXT AREA -->
                         <div x-data="{ expanded: false }">
-                            <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed transition-all duration-200" 
-                               :class="expanded ? 'break-all' : 'line-clamp-1 break-all overflow-hidden'">
+                            <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed transition-all" 
+                               :class="expanded ? 'whitespace-normal break-all' : 'truncate'">
                                 {{ $tweet->content }}
                             </p>
                             
