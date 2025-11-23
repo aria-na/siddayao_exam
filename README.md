@@ -101,34 +101,34 @@ First, you should have the following:
 
 | Guest Homepage | Guest Like |
 |:---:|:---:|
-| ![Guest Homepage](guest_homepage.png) | ![Guest Like](like_modal.png) |
+| ![Guest Homepage](./screenshots/guest_homepage.png) | ![Guest Like](./screenshots/like_modal.png) |
 
 | Guest Create | Dark Mode |
 |:---:|:---:|
-| ![Guest Create](create_modal.png) | ![Dark Mode](dark_mode.png) |
+| ![Guest Create](./screenshots/create_modal.png) | ![Dark Mode](./screenshots/dark_mode.png) |
 
 | Login | Sign Up |
 |:---:|:---:|
-| ![Login](login.png) | ![Sign Up](sign_up.png) |
+| ![Login](./screenshots/login.png) | ![Sign Up](./screenshots/sign_up.png) |
 
 | Profile Setup | Profile |
 |:---:|:---:|
-| ![Profile Setup](profile_setup.png) | ![Profile](profile.png) |
+| ![Profile Setup](./screenshots/profile_setup.png) | ![Profile](./screenshots/profile.png) |
 
 | Post Limit | Create Post |
 |:---:|:---:|
-| ![Post Limit](post_limit.png) | ![Create Post](profile_updated.png) |
+| ![Post Limit](./screenshots/post_limit.png) | ![Create Post](./screenshots/profile_updated.png) |
 
 | User Homepage | Liked Thoughts |
 |:---:|:---:|
-| ![User Homepage](user_homepage.png) | ![Liked Thoughts](profile_thoughts_liked.png) |
+| ![User Homepage](./screenshots/user_homepage.png) | ![Liked Thoughts](./screenshots/profile_thoughts_liked.png) |
 
 | Edit Post | Delete Post |
 |:---:|:---:|
-| ![Edit Post](edit_post.png) | ![Delete Post](delete_confirmation.png) |
+| ![Edit Post](./screenshots/edit_post.png) | ![Delete Post](./screenshots/delete_confirmation.png) |
 
 **Logout**
-![logout](logout_confirmation.png)
+![logout](./screenshots/logout_confirmation.png)
 ---
 
 ## CREDITS
