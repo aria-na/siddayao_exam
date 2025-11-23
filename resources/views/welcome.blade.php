@@ -62,19 +62,18 @@
                             @endif
                         </div>
 
-                        <!-- SMART TEXT AREA (Fixes the overflow) -->
+                        <!-- FIXED SMART TEXT AREA -->
                         <div x-data="{ expanded: false }">
-                            <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed" 
-                               :class="expanded ? 'whitespace-pre-wrap break-words' : 'truncate'">
-                               {{ $tweet->content }}
+                            <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed transition-all duration-200" 
+                               :class="expanded ? 'break-all' : 'line-clamp-1 break-all overflow-hidden'">
+                                {{ $tweet->content }}
                             </p>
                             
                             @if(Str::length($tweet->content) > 60)
-                                <button @click.stop="expanded = !expanded" 
-                                        x-show="!expanded"
-                                        class="text-sm text-gray-500 hover:text-purple-600 font-medium mt-1">
-                                    More
-                                </button>
+                                <div class="mt-1">
+                                    <button @click.stop="expanded = true" x-show="!expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none">More</button>
+                                    <button @click.stop="expanded = false" x-show="expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none" x-cloak>Less</button>
+                                </div>
                             @endif
                         </div>
                         
@@ -87,7 +86,7 @@
                             @auth
                                 <div x-data="{ liked: {{ $tweet->isLikedBy(Auth::user()) ? 'true' : 'false' }}, count: {{ $tweet->likes_count }} }">
                                     <button @click="liked = !liked; count = liked ? count + 1 : count - 1; fetch('{{ route('tweets.like', $tweet) }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' } });" 
-                                        class="group flex items-center gap-1.5 transition" :class="liked ? 'text-purple-600' : 'text-black dark:text-white'">
+                                            class="group flex items-center gap-1.5 transition" :class="liked ? 'text-purple-600' : 'text-black dark:text-white'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" :fill="liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                                         <span class="text-sm font-medium" x-text="count > 0 ? count : ''"></span>
                                     </button>

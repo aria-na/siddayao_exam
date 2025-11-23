@@ -101,14 +101,18 @@
                                     </div>
                                 </div>
                                 
-                                <!-- SMART TEXT AREA -->
+                                <!-- FIXED SMART TEXT AREA -->
                                 <div x-data="{ expanded: false }">
-                                    <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed" 
-                                       :class="expanded ? 'whitespace-pre-wrap break-words' : 'truncate'">
-                                       {{ $tweet->content }}
+                                    <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed transition-all duration-200" 
+                                       :class="expanded ? 'break-all' : 'line-clamp-1 break-all overflow-hidden'">
+                                        {{ $tweet->content }}
                                     </p>
+                                    
                                     @if(Str::length($tweet->content) > 60)
-                                        <button @click.stop="expanded = !expanded" x-show="!expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium mt-1">More</button>
+                                        <div class="mt-1">
+                                            <button @click.stop="expanded = true" x-show="!expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none">More</button>
+                                            <button @click.stop="expanded = false" x-show="expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none" x-cloak>Less</button>
+                                        </div>
                                     @endif
                                 </div>
                                 
@@ -154,14 +158,18 @@
                                     </div>
                                 </div>
                                 
-                                <!-- SMART TEXT AREA (Liked Tweets) -->
+                                <!-- FIXED SMART TEXT AREA (Liked Tweets) -->
                                 <div x-data="{ expanded: false }">
-                                    <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed" 
-                                       :class="expanded ? 'whitespace-pre-wrap break-words' : 'truncate'">
-                                       {{ $tweet->content }}
+                                    <p class="mt-1 text-black dark:text-gray-100 text-[15px] leading-relaxed transition-all duration-200" 
+                                       :class="expanded ? 'break-all' : 'line-clamp-1 break-all overflow-hidden'">
+                                        {{ $tweet->content }}
                                     </p>
+                                    
                                     @if(Str::length($tweet->content) > 60)
-                                        <button @click.stop="expanded = !expanded" x-show="!expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium mt-1">More</button>
+                                        <div class="mt-1">
+                                            <button @click.stop="expanded = true" x-show="!expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none">More</button>
+                                            <button @click.stop="expanded = false" x-show="expanded" class="text-sm text-gray-500 hover:text-purple-600 font-medium focus:outline-none" x-cloak>Less</button>
+                                        </div>
                                     @endif
                                 </div>
 
