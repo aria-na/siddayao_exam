@@ -1,48 +1,68 @@
 <?php
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-   public function up(): void
+    public function up(): void
     {
-        DB::unprepared('
-            CREATE TRIGGER tr_tweets_insert AFTER INSERT ON tweets FOR EACH ROW
-            BEGIN
-                INSERT INTO logs (action, table_name, record_id, new_values, created_at)
-                VALUES ("INSERT", "tweets", NEW.id, JSON_OBJECT("content", NEW.content, "user_id", NEW.user_id), NOW());
-            END
-        ');
+        $driver = DB::connection()->getDriverName();
 
-        DB::unprepared('
-            CREATE TRIGGER tr_tweets_update AFTER UPDATE ON tweets FOR EACH ROW
-            BEGIN
-                INSERT INTO logs (action, table_name, record_id, old_values, new_values, created_at)
-                VALUES ("UPDATE", "tweets", NEW.id, 
-                        JSON_OBJECT("content", OLD.content), 
-                        JSON_OBJECT("content", NEW.content), 
-                        NOW());
-            END
-        ');
+        // ------------------------------------------
+        // OPTION 1: POSTGRESQL (For the Cloud)
+        // ------------------------------------------
+        if ($driver === 'pgsql') {
+            // Postgres requires a Function first
+            DB::unprepared('
+                CREATE OR REPLACE FUNCTION log_tweet_insert()
+                RETURNS TRIGGER AS $$
+                BEGIN
+                    INSERT INTO logs (action, table_name, record_id, new_values, created_at)
+                    VALUES (
+                        \'INSERT\', 
+                        \'tweets\', 
+                        NEW.id, 
+                        json_build_object(\'content\', NEW.content, \'user_id\', NEW.user_id), 
+                        NOW()
+                    );
+                    RETURN NEW;
+                END;
+                $$ LANGUAGE plpgsql;
+            ');
 
-        DB::unprepared('
-            CREATE TRIGGER tr_tweets_delete AFTER DELETE ON tweets FOR EACH ROW
-            BEGIN
-                INSERT INTO logs (action, table_name, record_id, old_values, created_at)
-                VALUES ("DELETE", "tweets", OLD.id, JSON_OBJECT("content", OLD.content), NOW());
-            END
-        ');
+            // Then bind the Trigger to the Function
+            DB::unprepared('
+                CREATE TRIGGER tr_tweets_insert
+                AFTER INSERT ON tweets
+                FOR EACH ROW
+                EXECUTE FUNCTION log_tweet_insert();
+            ');
+        } 
+        
+        // ------------------------------------------
+        // OPTION 2: MYSQL (For your Local XAMPP)
+        // ------------------------------------------
+        elseif ($driver === 'mysql') {
+            DB::unprepared('
+                CREATE TRIGGER tr_tweets_insert AFTER INSERT ON tweets FOR EACH ROW
+                BEGIN
+                    INSERT INTO logs (action, table_name, record_id, new_values, created_at)
+                    VALUES ("INSERT", "tweets", NEW.id, JSON_OBJECT("content", NEW.content, "user_id", NEW.user_id), NOW());
+                END
+            ');
+        }
     }
 
     public function down(): void
     {
-        DB::unprepared('DROP TRIGGER IF EXISTS tr_tweets_insert');
-        DB::unprepared('DROP TRIGGER IF EXISTS tr_tweets_update');
-        DB::unprepared('DROP TRIGGER IF EXISTS tr_tweets_delete');
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'pgsql') {
+            DB::unprepared('DROP TRIGGER IF EXISTS tr_tweets_insert ON tweets');
+            DB::unprepared('DROP FUNCTION IF EXISTS log_tweet_insert');
+        } else {
+            DB::unprepared('DROP TRIGGER IF EXISTS tr_tweets_insert');
+        }
     }
 };
