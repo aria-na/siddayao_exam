@@ -1,16 +1,7 @@
 <x-main-layout>
     
     <!-- Mobile Header -->
-    <div class="md:hidden flex justify-between items-center p-4 sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur z-40 border-b border-gray-200 dark:border-gray-800">
-        <h1 class="text-xl font-bold text-purple-600 font-sans">@</h1>
-        <div class="flex gap-4">
-             @auth
-                <a href="{{ route('dashboard') }}" class="text-sm font-bold">Profile</a>
-             @else
-                <a href="{{ route('login') }}" class="text-sm font-bold">Log in</a>
-             @endauth
-        </div>
-    </div>
+    
 
     <!-- Main Feed Area -->
     <div class="max-w-2xl mx-auto w-full pb-20">
