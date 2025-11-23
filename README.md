@@ -1,59 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# THOUGHTS 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Table of Contents
+* [Project Description and Purpose](#project-description-and-purpose)
+* [Features Implemented](#features-implemented)
+* [Installation Instructions](#installation-instructions)
+* [Database Setup Steps](#database-setup-steps)
+* [Screenshots](#screenshots)
+* [Credits](#credits)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## PROJECT DESCRIPTION AND PURPOSE
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Project Name:** THOUGHTS
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Description:**
+Thoughts is a Threads/Twitter inspired web application. It features a modern, responsive design with dark mode support, real-time interactions, and comprehensive profile management.
 
-## Learning Laravel
+**Purpose:**
+This was developed as a Lab Exam output that aims to build a full-stack web application that showcases Authentication, CRUD Operations, Database Logic, and a Responsive UI.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## FEATURES IMPLEMENTED
 
-## Laravel Sponsors
+### 1. User & Profile Management with Security
+* **Secure Login/Register:** Built on Laravel Breeze with custom dark/purple styling. Also includes password hashing and security.
+* **Session Security:** Implemented `PreventBackHistory` middleware to restrict access to authenticated pages after logging out.
+* **Profile Customization:** Allows users to upload and change their profile picture and display name.
+* **Tabbed Navigation on Profile:** Users can see their own thoughts (tweets) and the thoughts (tweets) they've liked on their profile dashboard.
+* **Live Stats:** Automatically counts total thoughts posted and total likes received.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Tweet Management & Liking System
+* **Posting:** Users can share thoughts (tweet) (max 280 chars) via a modal with a live character counter.
+* **Feed:** A global homepage displaying thoughts (tweets) from all users in real-time order.
+* **Edit & Delete:** Users can manage their own content. Deletion is protected by a custom confirmation modal.
+* **Liking:** Users can like and unlike any thoughts (tweets) (including their own), can like a tweet one time only, like count displaying in real-time without full page refresh, and has a visual indicator if current user has liked a thought/s (tweet/s).
+* **Authentication:** Only authenticated users can post and like. If a user is not yet authenticated, they can only see the homepage but cannot post and like.
 
-### Premium Partners
+### 3. UI/UX Design
+* **Light/Dark Mode:** Users can choose between light mode and dark mode for the website; this uses a sun/moon icon for more clarity.
+* **Responsive Design:** The web app works on both mobile and desktop layouts.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## INSTALLATION INSTRUCTIONS
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prerequisites
+First, you should have the following:
+* **Local Server:** WAMP Server (recommended) or XAMPP
+* **PHP:** Version 8.2 or higher
+* **Database:** MySQL
+* **Node.js & NPM:** Required to build the Tailwind CSS assets
+* **Git:** To clone the repository
 
-## Code of Conduct
+### Follow these steps to run the project locally:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/aria-na/siddayao_exam.git
+   cd siddayao_exam
+2. **Install PHP Dependencies**
+    ```bash
+    composer install
+3. **Install Frontend Dependencies**
+    ```bash
+    npm install
+    npm run build
+4. **Environment Configuration**
+    Copy the exam env file: `cp .env.example .env`
+    Update database in details in `.env`
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=thoughts_db
+    DB_USERNAME=root
+    DB_PASSWORD=
+5. **Generate App Key**
+    ```bash
+    php artisan key:generate
+6. **Link Storage (For Images)**
+    ```bash
+    php artisan storage:link
+7. **Run the application**
+    ```bash
+    php artisan serve
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## DATABASE SETUP STEPS
+* **Create Database:** Create a new database named `thoughts_db` in phpMyAdmin.
+* **Run Migrations:**
+    ```bash
+    php artisan migrate
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## SCREENSHOTS
+
+| Guest Homepage | Guest Like |
+|:---:|:---:|
+| ![Guest Homepage](guest_homepage.png) | ![Guest Like](like_modal.png) |
+
+| Guest Create | Dark Mode |
+|:---:|:---:|
+| ![Guest Create](create_modal.png) | ![Dark Mode](dark_mode.png) |
+
+| Login | Sign Up |
+|:---:|:---:|
+| ![Login](login.png) | ![Sign Up](sign_up.png) |
+
+| Profile Setup | Profile |
+|:---:|:---:|
+| ![Profile Setup](profile_setup.png) | ![Profile](profile.png) |
+
+| Post Limit | Create Post |
+|:---:|:---:|
+| ![Post Limit](post_limit.png) | ![Create Post](profile_updated.png) |
+
+| User Homepage | Liked Thoughts |
+|:---:|:---:|
+| ![User Homepage](user_homepage.png) | ![Liked Thoughts](profile_thoughts_liked.png) |
+
+| Edit Post | Delete Post |
+|:---:|:---:|
+| ![Edit Post](edit_post.png) | ![Delete Post](delete_confirmation.png) |
+
+**Logout**
+![logout](logout_confirmation.png)
+---
+
+## CREDITS
+This project is made with Google Gemini, specifically in:
+* **Full-stack Implementation:** Assisted in writing code for both the Laravel backend (Controllers, Models, Routes) and the Frontend (Blade views, Alpine.js logic).
+* **UI/UX Design:** Generated Tailwind CSS classes inspired by Threads design.
+* **Database Architecture:** Helped design the schema, relationships, and complex raw SQL syntax for database triggers.
+* **Debugging & Refactoring:** Provided real-time troubleshooting for errors and suggestions for code optimization.
