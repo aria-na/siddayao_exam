@@ -132,7 +132,7 @@ First, you should have the following:
 ---
 
 ## CREDITS
-This project is made with Google Gemini, specifically in:
+This project is made with **Google Gemini**, specifically in:
 * **Full-stack Implementation:** Assisted in writing code for both the Laravel backend (Controllers, Models, Routes) and the Frontend (Blade views, Alpine.js logic).
 * **UI/UX Design:** Generated Tailwind CSS classes inspired by Threads design.
 * **Database Architecture:** Helped design the schema, relationships, and complex raw SQL syntax for database triggers.
